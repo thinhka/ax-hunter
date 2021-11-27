@@ -24,8 +24,8 @@ module.exports = {
     new CronJob('*/10 * * * * *', async function() {
       var aquaRequest = {"operationName":"GetAxieBriefList","variables":{"from":0,"size":10,"sort":"PriceAsc","auctionType":"Sale","owner":null,"criteria":{"region":null,"parts":["eyes-mavis","ears-nimo","tail-nimo","back-anemone","horn-anemone","mouth-lam","ears-inkling","eyes-gero"],"bodyShapes":null,"classes":["Aquatic"],"stages":null,"numMystic":null,"pureness":null,"title":null,"breedable":null,"breedCount":null,"hp":[],"skill":[],"speed":[],"morale":[]},"filterStuckAuctions":true},"query":"query GetAxieBriefList($auctionType: AuctionType, $criteria: AxieSearchCriteria, $from: Int, $sort: SortBy, $size: Int, $owner: String, $filterStuckAuctions: Boolean) {\n  axies(\n    auctionType: $auctionType\n    criteria: $criteria\n    from: $from\n    sort: $sort\n    size: $size\n    owner: $owner\n    filterStuckAuctions: $filterStuckAuctions\n  ) {\n    total\n    results {\n      ...AxieBrief\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment AxieBrief on Axie {\n  id\n  name\n  stage\n  class\n  breedCount\n  image\n  title\n  battleInfo {\n    banned\n    __typename\n  }\n  auction {\n    currentPrice\n    currentPriceUSD\n    __typename\n  }\n  parts {\n    id\n    name\n    class\n    type\n    specialGenes\n    __typename\n  }\n  __typename\n}\n"};
       var birdRequest = {"operationName":"GetAxieBriefList","variables":{"from":0,"size":10,"sort":"PriceAsc","auctionType":"Sale","owner":null,"criteria":{"region":null,"parts":["eyes-mavis","ears-owl","back-pigeon-post","mouth-little-owl","horn-eggshell","tail-post-fight"],"bodyShapes":null,"classes":["Bird"],"stages":null,"numMystic":null,"pureness":null,"title":null,"breedable":null,"breedCount":null,"hp":[],"skill":[],"speed":[],"morale":[]},"filterStuckAuctions":true},"query":"query GetAxieBriefList($auctionType: AuctionType, $criteria: AxieSearchCriteria, $from: Int, $sort: SortBy, $size: Int, $owner: String, $filterStuckAuctions: Boolean) {\n  axies(\n    auctionType: $auctionType\n    criteria: $criteria\n    from: $from\n    sort: $sort\n    size: $size\n    owner: $owner\n    filterStuckAuctions: $filterStuckAuctions\n  ) {\n    total\n    results {\n      ...AxieBrief\n      __typename\n    }\n    __typename\n  }\n}\n\nfragment AxieBrief on Axie {\n  id\n  name\n  stage\n  class\n  breedCount\n  image\n  title\n  battleInfo {\n    banned\n    __typename\n  }\n  auction {\n    currentPrice\n    currentPriceUSD\n    __typename\n  }\n  parts {\n    id\n    name\n    class\n    type\n    specialGenes\n    __typename\n  }\n  __typename\n}\n"};
-      that.fetch(aquaRequest, 250);
-      that.fetch(birdRequest, 312);
+      that.fetch(aquaRequest, 240);
+      that.fetch(birdRequest, 300);
     }, null, true).start();
   },
 
@@ -49,7 +49,10 @@ module.exports = {
           var currentPriceUSD = p.auction.currentPriceUSD;
 
           if(!pusheds.includes(tokenId)){
-            if(pusheds.length > 15){ pusheds = [];}            
+            if(pusheds.length > 20){ 
+              pusheds.splice(-10,10);
+              console.error(pusheds);
+            }            
 
             if(p.auction.currentPriceUSD <= lowPrice){
               that.postTeleMessage(axieName, breedCount, currentPrice, currentPriceUSD, tokenId);
@@ -64,6 +67,7 @@ module.exports = {
   },
 
   postTeleMessage(nftTypeName, breedCount, price, priceUsd, tokenId) {
+    console.error(tokenId);
     price = price/10000;
     var str_balance = `<b>${nftTypeName}</b> - Breed count: ${breedCount}\n`;
     str_balance += `Price: ${price} -  $${priceUsd}\n`;
