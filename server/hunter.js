@@ -49,8 +49,8 @@ module.exports = {
           var currentPriceUSD = p.auction.currentPriceUSD;
 
           if(!pusheds.includes(tokenId)){
-            if(pusheds.length > 20){ 
-              pusheds.splice(-20,10);
+            if(pusheds.length > 30){ 
+              pusheds.splice(0,10);
             }            
 
             if(p.auction.currentPriceUSD <= lowPrice){
