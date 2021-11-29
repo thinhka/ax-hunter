@@ -40,7 +40,7 @@ module.exports = {
         body: requestData
     }, function (error, response, body){
       try{
-        console.log(body);
+        if(body.data == null || body.data === 'undefined') {return;}
         var results = body.data.axies.results;
         results.forEach(p => {
           var axieName = p.class;
