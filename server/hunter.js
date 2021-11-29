@@ -4,12 +4,12 @@ var CronJob = require('cron').CronJob;
 const TelegramBot = require('node-telegram-bot-api');
 const { json } = require('body-parser');
 const { type } = require('os');
-const token = '2125295221:AAHsHhtG942Mcr6kI4FABVVLvuN_yvsV9eo';
+const token = '2120307916:AAH358OK9bZcHmjNmqPHNFwnXLU_13NTuy8';
 const bot = new TelegramBot(token, {
   polling: true
 });
 
-const channelChatId = '2045766841';
+const channelChatId = '-1001302360634';
 
 var pusheds = [];
 var detailMetamaskUrl = 'https://marketplace.axieinfinity.com/axie/';
