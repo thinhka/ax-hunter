@@ -69,8 +69,8 @@ module.exports = {
   postTeleMessage(nftTypeName, breedCount, price, priceUsd, tokenId) {
     console.error(tokenId);
     price = price/10000;
-    var str_balance = `<b>${nftTypeName}</b> - Breed count: ${breedCount}\n`;
-    str_balance += `Price: ${price} -  $${priceUsd}\n`;
+    var str_balance = `<b>${nftTypeName}</b> - ${price} - $${priceUsd}\n`;
+    str_balance += ` Breed count: ${breedCount}\n`;
     str_balance += `<a>${detailMetamaskUrl}${tokenId}</a> \n`;          
     bot.sendMessage(channelChatId, str_balance, {
       disable_web_page_preview: true,
